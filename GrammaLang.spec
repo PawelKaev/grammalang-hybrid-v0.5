@@ -1,58 +1,51 @@
-﻿# -*- mode: python ; coding: utf-8 -*-
+# -*- mode: python ; coding: utf-8 -*-
+from PyInstaller.utils.hooks import collect_all
+
+datas = [('prompts', 'prompts'), ('src', 'src'), ('configs', 'configs')]
+binaries = []
+hiddenimports = ['src.local_model', 'llama_cpp', 'llama_cpp.llama_cpp', 'matplotlib.backends.backend_tkagg', 'requests', 'pydantic', 'numpy']
+tmp_ret = collect_all('llama_cpp')
+datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
+
 
 a = Analysis(
     ['gui_app.py'],
-    pathex=['.'],
-    binaries=[],
-    datas=[
-        ('prompts/', 'prompts/'),
-        ('src/', 'src/'),
-    ],
-    hiddenimports=[
-        'src',
-        'src.fast_parser',
-        'src.deep_interpreter',
-        'src.fusion',
-        'src.cardiogram',
-        'llama_cpp',
-        'llama_cpp.llama_cpp',
-        'pydantic',
-        'matplotlib',
-        'matplotlib.backends.backend_tkagg',
-        'numpy',
-        'json',
-        'requests',
-        're',
-        'threading',
-        'pathlib',
-    ],
+    pathex=[],
+    binaries=binaries,
+    datas=datas,
+    hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
     noarchive=False,
+    optimize=0,
 )
-
 pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
+    exclude_binaries=True,
     name='GrammaLang',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
-    runtime_tmpdir=None,
     console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=None,
+)
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='GrammaLang',
 )
