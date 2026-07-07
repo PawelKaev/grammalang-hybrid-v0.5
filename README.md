@@ -1,22 +1,36 @@
-﻿# GrammaLang Hybrid v0.4.2
+﻿# GrammaLang Hybrid v0.5.0
 
-**Гибридный онтологический анализатор:** HY-MT1.5-7B + Qwen 3 14B
+**Онтологический анализатор текста с темпоральной кардиограммой.**
 
-## Архитектура
+## Что нового в v0.5
 
-[Текст] -> HY-MT1.5-7B -> [синтаксическая разметка] -> Qwen 3 14B -> [онтологическая интерпретация] -> Fusion Layer -> [итоговый JSON]
+- **Темпоральная кардиограмма** — динамика индекса воли по предложениям
+- **Визуальный график** — отдельное окно с matplotlib и тулбаром
+- **ASCII-кардиограмма** — текстовая версия для консоли
+- **Тёмная тема GUI** — современный интерфейс на Tkinter
 
-## Требования
-- Python 3.10+
-- Ollama с моделями hy-mt1.5-7b и qwen3:14b
-- 16+ ГБ VRAM
+## Быстрый старт
 
-## Установка
+### Установка
+\\\ash
+git clone https://github.com/PawelKaev/grammalang-hybrid-v0.5.git
+cd grammalang-hybrid-v0.5
 pip install -r requirements.txt
+\\\
 
-text
+### Запуск GUI
+\\\ash
+python gui_app.py
+\\\
 
-## Запуск
-python main.py --input input.txt --output result.json --verbose
+### Запуск CLI с кардиограммой
+\\\ash
+python main.py --input text.txt --batch --cardiogram --cardiogram-png plot.png
+\\\
 
-text
+## Документация
+- [Changelog v0.5.0](docs/v0.5_changelog.md)
+- [Оригинальный репозиторий v0.4.2](https://github.com/PawelKaev/grammalang-hybrid)
+
+## Лицензия
+MIT
